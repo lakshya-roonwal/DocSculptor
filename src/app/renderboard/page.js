@@ -1,7 +1,12 @@
 "use client";
 import React from "react";
+import { useRouter } from 'next/navigation';
+
 const RenderBoard = () => {
-  const myTestTextElements = [
+  const router = useRouter()
+    console.log(router.query);
+
+  const renderElements = [
     {
       id: 1699943825517,
       x: 664,
@@ -28,7 +33,7 @@ const RenderBoard = () => {
     },
   ];
 
-  const myTestObject = [
+  const dataObject = [
     {
       "S.No.": "1",
       Name: "Krishna",
@@ -94,13 +99,13 @@ const RenderBoard = () => {
   return (
     <div>
       <div className="render-div">
-      {myTestObject.map((testData)=>{
+      {dataObject.map((testData)=>{
         return (
         <div
           className="document-render"
           style={{ width: "210mm", height: "297mm", position: "relative" }}
         >
-          {myTestTextElements.map((textElement) => (
+          {renderElements.map((textElement) => (
             <div
               key={textElement.id}
               className="text-element"
