@@ -1,7 +1,10 @@
 "use client";
 import FileUploader from "@/components/FileUploader";
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useState,useRef  } from "react";
+import {RenderBoard} from "../renderboard/page";
+import { useReactToPrint } from 'react-to-print';
+
 
 const Artboard = () => {
   const [textElements, setTextElements] = useState([
@@ -54,6 +57,10 @@ const Artboard = () => {
   const [offsetX, setOffsetX] = useState(0);
   const [offsetY, setOffsetY] = useState(0);
   const [editableText, setEditableText] = useState(""); // State to store editable text
+
+
+
+
 
   const addText = () => {
     const newText = {
@@ -149,6 +156,11 @@ const Artboard = () => {
     );
   };
 
+  const componentRef = useRef();
+  const handlePrint = useReactToPrint({
+    content: () => componentRef.current,
+  });
+
   return (
     <>
       <div className="artboard-controller p-4">
@@ -208,7 +220,12 @@ const Artboard = () => {
         >
           Render
         </Link>
+        <button onClick={handlePrint}>
+          Print My Pdf
+        </button>
+      
       </div>
+      <div className="artboards flex justify-around">
       <div
         className="relative overflow-hidden border-2 border-black"
         id="artboard"
@@ -236,6 +253,13 @@ const Artboard = () => {
             </p>
           </div>
         ))}
+      </div>
+      <div
+      className="overflow-scroll" 
+      style={{width:"210mm",height:"297mm"}}
+      >
+      <RenderBoard ref={componentRef} dataObject={dataObject} renderElements={textElements}/>
+      </div>
       </div>
     </>
   );
