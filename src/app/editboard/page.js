@@ -100,6 +100,37 @@ const Artboard = () => {
     setSelectedElement(null);
   };
 
+  const handleTextPropertyChange=(event,textElement,property)=>{
+    let newTextProperty;
+    if(property==="isBold")
+    {
+      newTextProperty = JSON.parse(event.target.value);
+      if (newTextProperty) {
+        newTextProperty = false;
+      } else {
+        newTextProperty = true;
+      }
+    }
+    else if(property==="x"||property==="y")
+    {
+      newTextProperty = JSON.parse(event.target.value);
+    }
+    else
+    {
+      newTextProperty = event.target.value;
+    }
+    console.log("Text Property:"+newTextProperty);
+    console.log(typeof newTextProperty)
+    setTextElements((prevElements) =>
+      prevElements.map((element) =>
+        element.id === textElement.id
+          ? { ...element, [property]: newTextProperty }
+          : element
+      )
+    );
+    console.log(textElements);
+  }
+
   const handleTextChange = (event, textElement) => {
     console.log(event.target.value);
     const newText = event.target.value;
@@ -170,6 +201,7 @@ const Artboard = () => {
         handleTextFontSizeChange={handleTextFontSizeChange}
         handleTextBoldChange={handleTextBoldChange}
         handleTextChange={handleTextChange}
+        handleTextPropertyChange={handleTextPropertyChange}
       />
       <ArtBoardRenderer
           handleMouseMove={handleMouseMove}

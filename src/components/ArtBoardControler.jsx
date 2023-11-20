@@ -10,7 +10,8 @@ const ArtBoardControler = ({
     handlePrint,
     handleTextFontSizeChange,
     handleTextBoldChange,
-    handleTextChange
+    handleTextChange,
+    handleTextPropertyChange
 }) => {
   return (
     <div className="artboard-controller p-4">
@@ -23,14 +24,14 @@ const ArtBoardControler = ({
                 type="text"
                 className="my-2 bg-gray-50 border- border-gray-300 text-gray-900  text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500  block p-2.5"
                 value={textElement.content}
-                onChange={(e) => handleTextChange(e, textElement)}
+                onChange={(e) => handleTextPropertyChange(e, textElement,"content")}
               />
               <div className="text-properties">
                 <div className="text-position my-2">
                   <label htmlFor="">x : </label>
-                  <input type="text" className="border" value={textElement.x} />
+                  <input type="number" className="border" value={textElement.x} onChange={(e) => handleTextPropertyChange(e, textElement,"x")}/>
                   <label htmlFor="">y : </label>
-                  <input type="text" className="border" value={textElement.y} />
+                  <input type="number" className="border" value={textElement.y} onChange={(e) => handleTextPropertyChange(e, textElement,"y")} />
                 </div>
                 <div className="text-styling">
                   <span>Bold</span>
@@ -39,14 +40,20 @@ const ArtBoardControler = ({
                     name=""
                     id=""
                     value={textElement.isBold}
-                    onChange={(e) => handleTextBoldChange(e, textElement)}
+                    onChange={(e) =>{
+                      if (textElement.isBold) {
+                          handleTextPropertyChange(e, textElement,"isBold")
+                        } else {
+                          handleTextPropertyChange(e, textElement,"isBold")
+                        }
+                    }}
                   />
 
                   <span>Font Size</span>
                   <input
                     type="number"
                     value={textElement.fontSize}
-                    onChange={(e) => handleTextFontSizeChange(e, textElement)}
+                    onChange={(e) => handleTextPropertyChange(e, textElement,"fontSize")}
                   />
                 </div>
               </div>
