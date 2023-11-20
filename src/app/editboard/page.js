@@ -1,9 +1,9 @@
 "use client";
-import FileUploader from "@/components/FileUploader";
 import Link from "next/link";
 import React, { useState,useRef  } from "react";
-import {RenderBoard} from "../renderboard/page";
 import { useReactToPrint } from 'react-to-print';
+import ArtBoardControler from "@/components/ArtBoardControler";
+import ArtBoardRenderer from "@/components/ArtBoardRenderer";
 
 
 const Artboard = () => {
@@ -51,7 +51,6 @@ const Artboard = () => {
     },
   ]);
   const [dataObject, setDataObject] = useState([]);
-
   const [isDragging, setIsDragging] = useState(false);
   const [selectedElement, setSelectedElement] = useState(null);
   const [offsetX, setOffsetX] = useState(0);
@@ -114,7 +113,7 @@ const Artboard = () => {
     console.log(textElements);
   };
 
-  const handleTextFontChange = (event, textElement) => {
+  const handleTextFontSizeChange = (event, textElement) => {
     console.log(event.target.value);
     const newFontSize = event.target.value;
     setTextElements((prevElements) =>
@@ -163,104 +162,24 @@ const Artboard = () => {
 
   return (
     <>
-      <div className="artboard-controller p-4">
-        <h2 className="text-2xl font-bold">Artboard Controller</h2>
-        <FileUploader setDataObject={setDataObject} />
-        <div className="artboard-elements">
-          {textElements.map((textElement) => (
-            <div key={textElement.id}>
-              <textarea
-                type="text"
-                className="my-2 bg-gray-50 border- border-gray-300 text-gray-900  text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500  block p-2.5"
-                value={textElement.content}
-                onChange={(e) => handleTextChange(e, textElement)}
-              />
-              <div className="text-properties">
-                <div className="text-position my-2">
-                  <label htmlFor="">x : </label>
-                  <input type="text" className="border" value={textElement.x} />
-                  <label htmlFor="">y : </label>
-                  <input type="text" className="border" value={textElement.y} />
-                </div>
-                <div className="text-styling">
-                  <span>Bold</span>
-                  <input
-                    type="checkbox"
-                    name=""
-                    id=""
-                    value={textElement.isBold}
-                    onChange={(e) => handleTextBoldChange(e, textElement)}
-                  />
-
-                  <span>Font Size</span>
-                  <input
-                    type="number"
-                    value={textElement.fontSize}
-                    onChange={(e) => handleTextFontChange(e, textElement)}
-                  />
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-        <button
-          className="mx-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-          onClick={addText}
-        >
-          Add Text
-        </button>
-        <Link
-          className="mx-2 py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
-          href={
-            { pathname: "/renderboard", 
-            query: { 
-              message:"Hello World"
-              } }
-            }
-        >
-          Render
-        </Link>
-        <button onClick={handlePrint}>
-          Print My Pdf
-        </button>
-      
-      </div>
-      <div className="artboards flex justify-around">
-      <div
-        className="relative overflow-hidden border-2 border-black"
-        id="artboard"
-        style={{ width: "210mm", height: "297mm" }}
-        onMouseMove={handleMouseMove}
-        onMouseUp={handleMouseUp}
-      >
-        {textElements.map((textElement) => (
-          <div
-            key={textElement.id}
-            className="text-element absolute cursor-move whitespace-nowrap"
-            style={{
-              left: textElement.x,
-              top: textElement.y,
-              maxWidth: "210mm",
-            }}
-            onMouseDown={(e) => handleMouseDown(e, textElement)}
-          >
-            <p
-              style={{ fontSize: textElement.fontSize + "px" }}
-              className={textElement.isBold ? `font-bold` : ""}
-              onBlur={() => handleTextBlur(textElement)}
-            >
-              {textElement.content}
-            </p>
-          </div>
-        ))}
-      </div>
-      <div
-      className="overflow-scroll" 
-      style={{width:"210mm",height:"297mm"}}
-      >
-      <RenderBoard ref={componentRef} dataObject={dataObject} renderElements={textElements}/>
-      </div>
-      </div>
+      <ArtBoardControler
+        textElements={textElements}
+        setDataObject={setDataObject}
+        addText={addText}
+        handlePrint={handlePrint}
+        handleTextFontSizeChange={handleTextFontSizeChange}
+        handleTextBoldChange={handleTextBoldChange}
+        handleTextChange={handleTextChange}
+      />
+      <ArtBoardRenderer
+          handleMouseMove={handleMouseMove}
+          handleMouseUp={handleMouseUp}
+          textElements={textElements}
+          handleMouseDown={handleMouseDown}
+          handleTextBlur={handleTextBlur}
+          componentRef={componentRef}
+          dataObject={dataObject}
+      />
     </>
   );
 };
