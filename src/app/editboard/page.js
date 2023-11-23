@@ -1,12 +1,15 @@
 "use client";
 import Link from "next/link";
+import {NextUIProvider} from "@nextui-org/react";
 import React, { useState,useRef  } from "react";
 import { useReactToPrint } from 'react-to-print';
 import ArtBoardControler from "@/components/ArtBoardControler";
 import ArtBoardRenderer from "@/components/ArtBoardRenderer";
+import TextComp from "@/components/TextComp";
 
 
 const Artboard = () => {
+
   const [textElements, setTextElements] = useState([
     {
       id: 1699983425221,
@@ -57,10 +60,7 @@ const Artboard = () => {
   const [offsetY, setOffsetY] = useState(0);
   const [editableText, setEditableText] = useState(""); // State to store editable text
 
-
-
-
-
+  // Add Text To the Text Elements Array
   const addText = () => {
     const newText = {
       id: Date.now(),
@@ -104,7 +104,7 @@ const Artboard = () => {
     let newTextProperty;
     if(property==="isBold")
     {
-      newTextProperty = JSON.parse(event.target.value);
+      newTextProperty = event; //this is not event in the case of isBold the value is directy passed
       if (newTextProperty) {
         newTextProperty = false;
       } else {
@@ -131,50 +131,6 @@ const Artboard = () => {
     console.log(textElements);
   }
 
-  const handleTextChange = (event, textElement) => {
-    console.log(event.target.value);
-    const newText = event.target.value;
-    setTextElements((prevElements) =>
-      prevElements.map((element) =>
-        element.id === textElement.id
-          ? { ...element, content: newText }
-          : element
-      )
-    );
-    console.log(textElements);
-  };
-
-  const handleTextFontSizeChange = (event, textElement) => {
-    console.log(event.target.value);
-    const newFontSize = event.target.value;
-    setTextElements((prevElements) =>
-      prevElements.map((element) =>
-        element.id === textElement.id
-          ? { ...element, fontSize: newFontSize }
-          : element
-      )
-    );
-    console.log(textElements);
-  };
-
-  const handleTextBoldChange = (event, textElement) => {
-    console.log(event.target.value);
-    let newIsBold = JSON.parse(event.target.value);
-    if (newIsBold) {
-      newIsBold = false;
-    } else {
-      newIsBold = true;
-    }
-    setTextElements((prevElements) =>
-      prevElements.map((element) =>
-        element.id === textElement.id
-          ? { ...element, isBold: newIsBold }
-          : element
-      )
-    );
-    console.log(textElements);
-  };
-
   const handleTextBlur = (textElement) => {
     // Update the text content in the state
     setTextElements((prevElements) =>
@@ -193,14 +149,13 @@ const Artboard = () => {
 
   return (
     <>
+    <NextUIProvider>
+    
       <ArtBoardControler
         textElements={textElements}
         setDataObject={setDataObject}
         addText={addText}
         handlePrint={handlePrint}
-        handleTextFontSizeChange={handleTextFontSizeChange}
-        handleTextBoldChange={handleTextBoldChange}
-        handleTextChange={handleTextChange}
         handleTextPropertyChange={handleTextPropertyChange}
       />
       <ArtBoardRenderer
@@ -212,6 +167,7 @@ const Artboard = () => {
           componentRef={componentRef}
           dataObject={dataObject}
       />
+    </NextUIProvider>
     </>
   );
 };
