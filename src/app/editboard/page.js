@@ -17,6 +17,9 @@ const Artboard = () => {
       y: 82,
       fontSize: "25",
       isBold: true,
+      isItalic:true,
+      isUnderline:true,
+      fontFamily:"__Inter_Fallback_725fdb",
       content: "Invitation to Lakshya's Party",
     },
     {
@@ -25,6 +28,9 @@ const Artboard = () => {
       y: 201,
       fontSize: 16,
       isBold: false,
+      isItalic:false,
+      isUnderline:false,
+      fontFamily:"__Inter_Fallback_725fdb",
       content:
         "Hello dear , {{Name}} this is to inform you that there will be a small party  at lakshy's house ",
     },
@@ -34,6 +40,9 @@ const Artboard = () => {
       y: 245,
       fontSize: 16,
       isBold: false,
+      isItalic:false,
+      isUnderline:false,
+      fontFamily:"__Inter_Fallback_725fdb",
       content: "on : {{Date}} at : {{Time}}",
     },
     {
@@ -42,6 +51,9 @@ const Artboard = () => {
       y: 501,
       fontSize: "23",
       isBold: true,
+      isItalic:false,
+      isUnderline:false,
+      fontFamily:"__Inter_Fallback_725fdb",
       content: "Please Come",
     },
     {
@@ -50,6 +62,9 @@ const Artboard = () => {
       y: 974,
       fontSize: 16,
       isBold: false,
+      isItalic:false,
+      isUnderline:false,
+      fontFamily:"__Inter_Fallback_725fdb",
       content: "A request from my self",
     },
   ]);
@@ -68,6 +83,9 @@ const Artboard = () => {
       y: 10,
       fontSize: 16,
       isBold: false,
+      isItalic:false,
+      isUnderline:false,
+      fontFamily:"__Inter_Fallback_725fdb",
       content: "Lorem Ipsum",
     };
     setTextElements([...textElements, newText]);
@@ -102,7 +120,7 @@ const Artboard = () => {
 
   const handleTextPropertyChange=(event,textElement,property)=>{
     let newTextProperty;
-    if(property==="isBold")
+    if(property==="isBold"||property==="isItalic"||property==="isUnderline")
     {
       newTextProperty = event; //this is not event in the case of isBold the value is directy passed
       if (newTextProperty) {

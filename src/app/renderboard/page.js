@@ -95,7 +95,7 @@ export const RenderBoard = React.forwardRef(({dataObject,renderElements}, ref) =
   };
 
   return (
-    <div ref={ref}>
+    <div ref={ref} >
       <div className="render-div">
       {dataObject.map((testData)=>{
         return (
@@ -115,7 +115,11 @@ export const RenderBoard = React.forwardRef(({dataObject,renderElements}, ref) =
             >
               <p
                 style={{ fontSize: textElement.fontSize + "px" }}
-                className={textElement.isBold ? `font-bold` : ""}
+                className={`
+                ${textElement.isBold ? `font-bold` : ""}
+                ${textElement.isItalic ? `italic` : ""}
+                ${textElement.isUnderline ? `underline` : ""}
+                `}
               >
                 {convertToRendringText(textElement.content,testData)}
               </p>

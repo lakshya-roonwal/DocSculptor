@@ -23,6 +23,7 @@ const styles = {
       border: `2px dashed ${GREY}`,
       borderRadius: 20,
       display: 'flex',
+      width:"25rem",
       flexDirection: 'column',
       height: '100%',
       justifyContent: 'center',

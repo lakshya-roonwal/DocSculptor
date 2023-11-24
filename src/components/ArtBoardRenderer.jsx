@@ -31,8 +31,12 @@ const ArtBoardRenderer = ({
             onMouseDown={(e) => handleMouseDown(e, textElement)}
           >
             <p
-              style={{ fontSize: textElement.fontSize + "px" }}
-              className={textElement.isBold ? `font-bold` : ""}
+              style={{ fontSize: textElement.fontSize + "px",fontFamily:textElement.fontFamily }}
+              className={`
+                ${textElement.isBold ? `font-bold` : ""}
+                ${textElement.isItalic ? `italic` : ""}
+                ${textElement.isUnderline ? `underline` : ""}
+                `}
               onBlur={() => handleTextBlur(textElement)}
             >
               {textElement.content}
@@ -41,8 +45,8 @@ const ArtBoardRenderer = ({
         ))}
       </div>
       <div
-        className="overflow-scroll"
-        style={{ width: "210mm", height: "297mm" }}
+        className="overflow-scroll border-2"
+        style={{ height: "297mm" }}
       >
         <RenderBoard
           ref={componentRef}
