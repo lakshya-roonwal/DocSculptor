@@ -9,6 +9,7 @@ import { useCheckbox, Chip, VisuallyHidden, tv } from "@nextui-org/react";
 
 // Icons
 import { BsTypeBold } from "react-icons/bs";
+import LayoutTester from "./LayoutTester";
 
 const checkbox = tv({
   slots: {
@@ -51,13 +52,13 @@ const ArtBoardControler = ({
   return (
     <div className="artboard-controller p-4">
       <h2 className="text-2xl font-bold">Artboard Controller</h2>
+      <LayoutTester/>
       <FileUploader setDataObject={setDataObject} />
       <div className="artboard-elements">
         {textElements.map((textElement) => (
           <div key={textElement.id}>
-            <textarea
+            <Input
               type="text"
-              className="my-2 bg-gray-50 border- border-gray-300 text-gray-900  text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500  block p-2.5"
               value={textElement.content}
               onChange={(e) =>
                 handleTextPropertyChange(e, textElement, "content")
