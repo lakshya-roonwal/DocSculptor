@@ -1,5 +1,6 @@
 import { RenderBoard } from "@/app/renderboard/page";
 import React from "react";
+import {Tabs, Tab} from "@nextui-org/react";
 
 const ArtBoardRenderer = ({
   handleMouseMove,
@@ -11,7 +12,9 @@ const ArtBoardRenderer = ({
   dataObject,
 }) => {
   return (
-    <div className="artboards flex justify-around">
+    <div className="artboards flex flex-col justify-around">
+    <Tabs>
+    <Tab key="singleboard" title="Edit Doc">
       <div
         className="relative overflow-hidden border-2 border-black"
         id="artboard"
@@ -43,10 +46,13 @@ const ArtBoardRenderer = ({
             </p>
           </div>
         ))}
+      
       </div>
+      </Tab>
+      <Tab key="multipageboard" title="Your Pdf">
       <div
         className="overflow-scroll border-2"
-        style={{ height: "297mm" }}
+        style={{ height: "297mm",width:"210mm" }}
       >
         <RenderBoard
           ref={componentRef}
@@ -54,6 +60,8 @@ const ArtBoardRenderer = ({
           renderElements={textElements}
         />
       </div>
+      </Tab>
+      </Tabs>
     </div>
   );
 };

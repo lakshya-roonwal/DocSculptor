@@ -24,11 +24,12 @@ const ArtBoardControler = ({
 
   return (
     <div className="artboard-controller p-4">
+    <div>
       <h2 className="text-2xl font-bold">Artboard Controller</h2>
       <FileUploader setDataObject={setDataObject} />
-      <div className="artboard-elements w-1/4">
+      <div className="artboard-elements w-96">
         {textElements.map((textElement) => (
-          <div className="my-2 border-1">
+          <div className="my-2 w-full">
           <PropertyAccordian
             handleTextPropertyChange={handleTextPropertyChange}
             textElement={textElement}
@@ -45,6 +46,7 @@ const ArtBoardControler = ({
       <Button onClick={handlePrint} variant="ghost">
         Print My Pdf
       </Button>
+      </div>
     </div>
   );
 };

@@ -16,7 +16,7 @@ const PropertyAccordian = ({handleTextPropertyChange,textElement}) => {
                 handleTextPropertyChange(e, textElement, "content")
               }
             />
-            <span onClick={()=>{setShow(!show)}}><IoIosArrowBack className={`${show?"-rotate-90":""}`}/></span>
+            <Button isIconOnly onClick={()=>{setShow(!show)}}><IoIosArrowBack className={`${show?"-rotate-90":""}`}/></Button>
         </div>
         {show&& <PropertyControler 
               handleTextPropertyChange={handleTextPropertyChange}

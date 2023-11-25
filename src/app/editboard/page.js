@@ -5,10 +5,11 @@ import React, { useState,useRef  } from "react";
 import { useReactToPrint } from 'react-to-print';
 import ArtBoardControler from "@/components/ArtBoardControler";
 import ArtBoardRenderer from "@/components/ArtBoardRenderer";
-import TextComp from "@/components/TextComp";
-
 
 const Artboard = () => {
+  // Forr Removing Dark Mode
+  
+  
 
   const [textElements, setTextElements] = useState([
     {
@@ -168,7 +169,7 @@ const Artboard = () => {
   return (
     <>
     <NextUIProvider>
-    
+    <div className="flex">
       <ArtBoardControler
         textElements={textElements}
         setDataObject={setDataObject}
@@ -185,6 +186,7 @@ const Artboard = () => {
           componentRef={componentRef}
           dataObject={dataObject}
       />
+    </div>
     </NextUIProvider>
     </>
   );
