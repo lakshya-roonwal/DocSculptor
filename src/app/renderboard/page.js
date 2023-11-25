@@ -1,8 +1,10 @@
 "use client";
 import React from "react";
 import { useRouter } from 'next/navigation';
+import { Button, Tooltip } from "@nextui-org/react";
+import { MdLocalPrintshop } from "react-icons/md";
 
-export const RenderBoard = React.forwardRef(({dataObject,renderElements}, ref) =>   {
+export const RenderBoard = React.forwardRef(({dataObject,renderElements,handlePrint}, ref) =>   {
 
   // const renderElements = [
   //   {
@@ -95,6 +97,14 @@ export const RenderBoard = React.forwardRef(({dataObject,renderElements}, ref) =
   };
 
   return (
+    <div>
+    <div className="w-full bg-gray-200 flex justify-end p-2">
+    <Tooltip content="Print Your Pdf">
+      <Button isIconOnly onClick={handlePrint} color="success" variant="shadow">
+          <MdLocalPrintshop size={"50%"}/>
+        </Button>
+    </Tooltip>
+    </div>
     <div ref={ref} >
       <div className="render-div">
       {dataObject.map((testData)=>{
@@ -129,6 +139,7 @@ export const RenderBoard = React.forwardRef(({dataObject,renderElements}, ref) =
         )
       })}
       </div>
+    </div>
     </div>
   );
 });

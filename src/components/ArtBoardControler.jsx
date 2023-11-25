@@ -2,7 +2,7 @@ import React from "react";
 import Link from "next/link";
 
 // Next UI Imports
-import { Button } from "@nextui-org/react";
+import { Button, Tooltip } from "@nextui-org/react";
 import { Input } from "@nextui-org/react";
 import {Accordion, AccordionItem} from "@nextui-org/react";
 
@@ -37,15 +37,14 @@ const ArtBoardControler = ({
           </div>
         ))}
       </div>
-      <button
-        className="mx-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+      <Tooltip content="Add Text To Document">
+      <Button
+        color="primary"
         onClick={addText}
       >
         Add Text
-      </button>
-      <Button onClick={handlePrint} variant="ghost">
-        Print My Pdf
       </Button>
+      </Tooltip>
       </div>
     </div>
   );

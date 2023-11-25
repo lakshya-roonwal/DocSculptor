@@ -20,7 +20,7 @@ const Artboard = () => {
       isBold: true,
       isItalic:true,
       isUnderline:true,
-      fontFamily:"__Inter_Fallback_725fdb",
+      fontFamily:"__Inter_Fallback_725fdb,'Inter', sans-serif",
       content: "Invitation to Lakshya's Party",
     },
     {
@@ -31,7 +31,7 @@ const Artboard = () => {
       isBold: false,
       isItalic:false,
       isUnderline:false,
-      fontFamily:"__Inter_Fallback_725fdb",
+      fontFamily:"__Inter_Fallback_725fdb,'Inter', sans-serif",
       content:
         "Hello dear , {{Name}} this is to inform you that there will be a small party  at lakshy's house ",
     },
@@ -43,7 +43,7 @@ const Artboard = () => {
       isBold: false,
       isItalic:false,
       isUnderline:false,
-      fontFamily:"__Inter_Fallback_725fdb",
+      fontFamily:"__Inter_Fallback_725fdb,'Inter', sans-serif",
       content: "on : {{Date}} at : {{Time}}",
     },
     {
@@ -54,7 +54,7 @@ const Artboard = () => {
       isBold: true,
       isItalic:false,
       isUnderline:false,
-      fontFamily:"__Inter_Fallback_725fdb",
+      fontFamily:"__Inter_Fallback_725fdb,'Inter', sans-serif",
       content: "Please Come",
     },
     {
@@ -65,7 +65,7 @@ const Artboard = () => {
       isBold: false,
       isItalic:false,
       isUnderline:false,
-      fontFamily:"__Inter_Fallback_725fdb",
+      fontFamily:"__Inter_Fallback_725fdb,'Inter', sans-serif",
       content: "A request from my self",
     },
   ]);
@@ -86,7 +86,7 @@ const Artboard = () => {
       isBold: false,
       isItalic:false,
       isUnderline:false,
-      fontFamily:"__Inter_Fallback_725fdb",
+      fontFamily:"__Inter_Fallback_725fdb,'Inter', sans-serif",
       content: "Lorem Ipsum",
     };
     setTextElements([...textElements, newText]);
@@ -184,6 +184,7 @@ const Artboard = () => {
           handleMouseDown={handleMouseDown}
           handleTextBlur={handleTextBlur}
           componentRef={componentRef}
+          handlePrint={handlePrint}
           dataObject={dataObject}
       />
     </div>

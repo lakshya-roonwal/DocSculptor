@@ -6,19 +6,25 @@ import { MdFormatUnderlined } from "react-icons/md";
 import {Select, SelectSection, SelectItem} from "@nextui-org/react";
 
 const PropertyControler = ({handleTextPropertyChange,textElement}) => {
+  // const handleFontFamilyChange=()=>{
+  //   handleTextPropertyChange(e, textElement, "fontFamily")
+  // }
   return (
     <div className="text-properties w-full flex flex-col gap-2">
     <div className="font-properties flex gap-2 ">
     <Select 
-        label="Select an animal" 
-        className="w-3/4" 
-      >    
-        <SelectItem key={"example1"} value={"example1"}>example1</SelectItem>
-        <SelectItem key={"example2"} value={"example2"}>example2</SelectItem>
-        <SelectItem key={"example3"} value={"example3"}>example3</SelectItem>
-        <SelectItem key={"example4"} value={"example4"}>example4</SelectItem>
-        <SelectItem key={"example5"} value={"example5"}>example5</SelectItem>
-        <SelectItem key={"example6"} value={"example6"}>example6</SelectItem>
+        label="Select Font" 
+        className="w-3/4"
+        onChange={(e) =>
+        handleTextPropertyChange(e, textElement, "fontFamily")
+        }
+      >
+        <SelectItem key={"__Inter_Fallback_725fdb,'Inter', sans-serif"} value={"__Inter_Fallback_725fdb,'Inter', sans-serif"}>Inter</SelectItem>
+        <SelectItem key={"'Times New Roman', Times, serif"} value={"'Times New Roman', Times, serif"}>Times New Roman</SelectItem>
+        <SelectItem key={"'Lora', serif"} value={"'Lora', serif"}>Lora</SelectItem>
+        <SelectItem key={"'Montserrat', sans-serif"} value={"'Montserrat', sans-serif"}>Montserrat</SelectItem>
+        <SelectItem key={"'Open Sans', sans-serif"} value={"'Open Sans', sans-serif"}>Open Sans</SelectItem>
+        <SelectItem key={"'Pacifico', cursive"} value={"'Pacifico', cursive"}>Pacifico</SelectItem>
       </Select>
       <Input 
       type="number" 

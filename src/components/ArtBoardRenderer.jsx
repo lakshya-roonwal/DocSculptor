@@ -10,6 +10,7 @@ const ArtBoardRenderer = ({
   handleTextBlur,
   componentRef,
   dataObject,
+  handlePrint
 }) => {
   return (
     <div className="artboards flex flex-col justify-around">
@@ -55,6 +56,7 @@ const ArtBoardRenderer = ({
         style={{ height: "297mm",width:"210mm" }}
       >
         <RenderBoard
+          handlePrint={handlePrint}
           ref={componentRef}
           dataObject={dataObject}
           renderElements={textElements}
