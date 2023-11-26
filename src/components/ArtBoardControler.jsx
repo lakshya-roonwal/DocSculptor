@@ -17,7 +17,7 @@ const ArtBoardControler = ({
   setDataObject,
   textElements,
   addText,
-  handlePrint,
+  handleDeleteElement,
   handleTextPropertyChange,
 }) => {
 
@@ -30,6 +30,7 @@ const ArtBoardControler = ({
         {textElements.map((textElement) => (
           <div className="my-2 w-full">
           <PropertyAccordian
+          handleDeleteElement={handleDeleteElement}
             handleTextPropertyChange={handleTextPropertyChange}
             textElement={textElement}
           />

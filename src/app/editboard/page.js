@@ -104,6 +104,16 @@ const Artboard = () => {
     console.log(textElements);
   }
 
+  // Delete Text Element
+  const handleDeleteElement=(id)=>{
+    console.log(id);
+    const newTextElements = textElements.filter(obj => obj.id !== id);
+
+    // Update the state with the new array
+    setTextElements(newTextElements);
+
+  }
+
   // Component Ref For Print Component
   const componentRef = useRef();
   const handlePrint = useReactToPrint({
@@ -119,6 +129,7 @@ const Artboard = () => {
         setDataObject={setDataObject}
         addText={addText}
         handlePrint={handlePrint}
+        handleDeleteElement={handleDeleteElement}
         handleTextPropertyChange={handleTextPropertyChange}
       />
       <ArtBoardRenderer

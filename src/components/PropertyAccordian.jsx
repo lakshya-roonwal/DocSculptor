@@ -3,7 +3,7 @@ import React,{useState} from 'react'
 import PropertyControler from './PropertyControler'
 import { IoIosArrowBack } from "react-icons/io";
 
-const PropertyAccordian = ({handleTextPropertyChange,textElement}) => {
+const PropertyAccordian = ({handleTextPropertyChange,textElement,handleDeleteElement}) => {
     const [show, setShow] = useState(false)
   return (
     <>
@@ -19,6 +19,7 @@ const PropertyAccordian = ({handleTextPropertyChange,textElement}) => {
             <Button isIconOnly onClick={()=>{setShow(!show)}}><IoIosArrowBack className={`${show?"-rotate-90":""}`}/></Button>
         </div>
         {show&& <PropertyControler 
+              handleDeleteElement={handleDeleteElement}
               handleTextPropertyChange={handleTextPropertyChange}
               textElement={textElement}
             />}
