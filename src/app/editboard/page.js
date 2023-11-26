@@ -5,6 +5,7 @@ import React, { useState,useRef  } from "react";
 import { useReactToPrint } from 'react-to-print';
 import ArtBoardControler from "@/components/ArtBoardControler";
 import ArtBoardRenderer from "@/components/ArtBoardRenderer";
+import SecondaryControler from "@/components/SecondaryControler";
 
 const Artboard = () => {
   // Forr Removing Dark Mode
@@ -112,7 +113,7 @@ const Artboard = () => {
   return (
     <>
     <NextUIProvider>
-    <div className="flex">
+    <div className="flex justify-between">
       <ArtBoardControler
         textElements={textElements}
         setDataObject={setDataObject}
@@ -130,6 +131,7 @@ const Artboard = () => {
           handlePrint={handlePrint}
           dataObject={dataObject}
       />
+      <SecondaryControler/>
     </div>
     </NextUIProvider>
     </>

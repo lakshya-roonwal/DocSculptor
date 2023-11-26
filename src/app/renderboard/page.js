@@ -6,66 +6,6 @@ import { MdLocalPrintshop } from "react-icons/md";
 
 export const RenderBoard = React.forwardRef(({dataObject,renderElements,handlePrint}, ref) =>   {
 
-  // const renderElements = [
-  //   {
-  //     id: 1699943825517,
-  //     x: 664,
-  //     y: 125,
-  //     fontSize: 16,
-  //     isBold: false,
-  //     content: "Happy Birthday ",
-  //   },
-  //   {
-  //     id: 1699943826497,
-  //     x: 12,
-  //     y: 126,
-  //     fontSize: 16,
-  //     isBold: false,
-  //     content: "Your are {{Data}}",
-  //   },
-  //   {
-  //     id: 1699943827661,
-  //     x: 305,
-  //     y: 11,
-  //     fontSize: "20",
-  //     isBold: true,
-  //     content: "My Name is {{Name}}",
-  //   },
-  // ];
-
-  // const dataObject = [
-  //   {
-  //     "S.No.": "1",
-  //     Name: "Krishna",
-  //     Data: "Nothing",
-  //   },
-  //   {
-  //     "S.No.": "2",
-  //     Name: "Ramesh",
-  //     Data: "Anything",
-  //   },
-  //   {
-  //     "S.No.": "3",
-  //     Name: "Suresh",
-  //     Data: "Everything",
-  //   },
-  //   {
-  //     "S.No.": "4",
-  //     Name: "Kailash",
-  //     Data: "Something",
-  //   },
-  //   {
-  //     "S.No.": "5",
-  //     Name: "Neha",
-  //     Data: "A Few Thing",
-  //   },
-  //   {
-  //     "S.No.": "6",
-  //     Name: "Ramika",
-  //     Data: "No data",
-  //   },
-  // ];
-
   function findIndices(str, substring) {
     let indices = [];
     let index = str.indexOf(substring);

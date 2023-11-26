@@ -10,7 +10,6 @@ import {Accordion, AccordionItem} from "@nextui-org/react";
 import { BsTypeBold } from "react-icons/bs";
 
 // Other Components
-import PropertyControler from "./PropertyControler";
 import FileUploader from "./FileUploader";
 import PropertyAccordian from "./PropertyAccordian";
 
@@ -23,7 +22,7 @@ const ArtBoardControler = ({
 }) => {
 
   return (
-    <div className="artboard-controller p-4">
+    <div className="artboard-controller h-screen p-4">
     <div>
       <h2 className="text-2xl font-bold">Artboard Controller</h2>
       <FileUploader setDataObject={setDataObject} />

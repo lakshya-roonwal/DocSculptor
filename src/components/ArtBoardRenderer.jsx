@@ -13,7 +13,7 @@ const ArtBoardRenderer = ({
   handlePrint
 }) => {
   return (
-    <div className="artboards flex flex-col justify-around">
+    <div className="artboards flex flex-col">
     <Tabs>
     <Tab key="singleboard" title="Edit Doc">
       <div
