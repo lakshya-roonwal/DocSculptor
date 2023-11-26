@@ -6,7 +6,7 @@
 *{
   margin: 0;
   padding: 0;
-  /* outline: 1px solid white; */
+  /* outline: 1px solid black; */
 }
 ::-webkit-scrollbar {
   width: 10px;

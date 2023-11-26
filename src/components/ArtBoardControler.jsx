@@ -39,6 +39,7 @@ const ArtBoardControler = ({
       </div>
       <Tooltip content="Add Text To Document">
       <Button
+        className="my-2"
         color="primary"
         onClick={addText}
       >

@@ -8,67 +8,10 @@ import ArtBoardRenderer from "@/components/ArtBoardRenderer";
 
 const Artboard = () => {
   // Forr Removing Dark Mode
-  
-  
 
-  const [textElements, setTextElements] = useState([
-    {
-      id: 1699983425221,
-      x: 184,
-      y: 82,
-      fontSize: "25",
-      isBold: true,
-      isItalic:true,
-      isUnderline:true,
-      fontFamily:"__Inter_Fallback_725fdb,'Inter', sans-serif",
-      content: "Invitation to Lakshya's Party",
-    },
-    {
-      id: 1699983464560,
-      x: 16,
-      y: 201,
-      fontSize: 16,
-      isBold: false,
-      isItalic:false,
-      isUnderline:false,
-      fontFamily:"__Inter_Fallback_725fdb,'Inter', sans-serif",
-      content:
-        "Hello dear , {{Name}} this is to inform you that there will be a small party  at lakshy's house ",
-    },
-    {
-      id: 1699983540034,
-      x: 16,
-      y: 245,
-      fontSize: 16,
-      isBold: false,
-      isItalic:false,
-      isUnderline:false,
-      fontFamily:"__Inter_Fallback_725fdb,'Inter', sans-serif",
-      content: "on : {{Date}} at : {{Time}}",
-    },
-    {
-      id: 1699983590265,
-      x: 295,
-      y: 501,
-      fontSize: "23",
-      isBold: true,
-      isItalic:false,
-      isUnderline:false,
-      fontFamily:"__Inter_Fallback_725fdb,'Inter', sans-serif",
-      content: "Please Come",
-    },
-    {
-      id: 1699983685279,
-      x: 273,
-      y: 974,
-      fontSize: 16,
-      isBold: false,
-      isItalic:false,
-      isUnderline:false,
-      fontFamily:"__Inter_Fallback_725fdb,'Inter', sans-serif",
-      content: "A request from my self",
-    },
-  ]);
+
+  // States of The App
+  const [textElements, setTextElements] = useState([]);
   const [dataObject, setDataObject] = useState([]);
   const [isDragging, setIsDragging] = useState(false);
   const [selectedElement, setSelectedElement] = useState(null);
@@ -92,13 +35,13 @@ const Artboard = () => {
     setTextElements([...textElements, newText]);
   };
 
+  // Element Movement Functions
   const handleMouseDown = (e, textElement) => {
     setIsDragging(true);
     setSelectedElement(textElement);
     setOffsetX(e.clientX - textElement.x);
     setOffsetY(e.clientY - textElement.y);
   };
-
   const handleMouseMove = (e) => {
     if (isDragging && selectedElement) {
       const updatedElement = {
@@ -113,12 +56,22 @@ const Artboard = () => {
       );
     }
   };
-
   const handleMouseUp = () => {
     setIsDragging(false);
     setSelectedElement(null);
   };
+  const handleTextBlur = (textElement) => {
+    // Update the text content in the state
+    setTextElements((prevElements) =>
+      prevElements.map((element) =>
+        element.id === textElement.id
+          ? { ...element, text: editableText }
+          : element
+      )
+    );
+  };
 
+  // Text Property Change : Passed to PropertyContorler 
   const handleTextPropertyChange=(event,textElement,property)=>{
     let newTextProperty;
     if(property==="isBold"||property==="isItalic"||property==="isUnderline")
@@ -150,17 +103,7 @@ const Artboard = () => {
     console.log(textElements);
   }
 
-  const handleTextBlur = (textElement) => {
-    // Update the text content in the state
-    setTextElements((prevElements) =>
-      prevElements.map((element) =>
-        element.id === textElement.id
-          ? { ...element, text: editableText }
-          : element
-      )
-    );
-  };
-
+  // Component Ref For Print Component
   const componentRef = useRef();
   const handlePrint = useReactToPrint({
     content: () => componentRef.current,

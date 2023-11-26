@@ -23,7 +23,7 @@ const ArtBoardRenderer = ({
         onMouseMove={handleMouseMove}
         onMouseUp={handleMouseUp}
       >
-        {textElements.map((textElement) => (
+        {textElements.length>0?textElements.map((textElement) => (
           <div
             key={textElement.id}
             className="text-element absolute cursor-move whitespace-nowrap"
@@ -46,13 +46,13 @@ const ArtBoardRenderer = ({
               {textElement.content}
             </p>
           </div>
-        ))}
+        )):<h2 className="text-center py-10 text-2xl font-bold text-green-600">Add Some Elements</h2>}
       
       </div>
       </Tab>
       <Tab key="multipageboard" title="Your Pdf">
       <div
-        className="overflow-scroll border-2"
+        className="overflow-y-scroll "
         style={{ height: "297mm",width:"210mm" }}
       >
         <RenderBoard

@@ -1,56 +1,59 @@
-import React from "react";
-import {useCheckbox, Chip, VisuallyHidden, tv, Button} from "@nextui-org/react";
+import React, { useState } from 'react';
 
-const checkbox = tv({
-  slots: {
-    base: "border-default hover:bg-default-200",
-    content: "text-default-500"
-  },
-  variants: {
-    isSelected: {
-      true: {
-        base: "border-primary bg-primary hover:bg-primary-500 hover:border-primary-500",
-        content: "text-primary-foreground pl-1"
-      }
-    },
-    isFocusVisible: {
-      true: { 
-        base: "outline-none ring-2 ring-focus ring-offset-2 ring-offset-background",
-      }
-    }
-  }
-})
+const DragAndDrop = () => {
+  const [dragging, setDragging] = useState(false);
+  const [files, setFiles] = useState([]);
 
-export default function TextComp() {
-  const {
-    children,
-    isSelected,
-    isFocusVisible,
-    getBaseProps,
-    getLabelProps,
-    getInputProps,
-  } = useCheckbox({
-    defaultSelected: true,
-  })
+  const handleDragEnter = (e) => {
+    e.preventDefault();
+    setDragging(true);
+  };
 
-  const styles = checkbox({ isSelected, isFocusVisible })
+  const handleDragLeave = () => {
+    setDragging(false);
+  };
+
+  const handleDragOver = (e) => {
+    e.preventDefault();
+  };
+
+  const handleDrop = (e) => {
+    e.preventDefault();
+    setDragging(false);
+    const droppedFiles = Array.from(e.dataTransfer.files);
+    setFiles(droppedFiles);
+  };
+
+  const handleFileChange = (e) => {
+    const selectedFiles = Array.from(e.target.files);
+    setFiles(selectedFiles);
+  };
 
   return (
-    <label {...getBaseProps()}>
-      <VisuallyHidden>
-        <input {...getInputProps()} />
-      </VisuallyHidden>
-      <Chip
-        classNames={{
-          base: styles.base(),
-          content: styles.content(),
-        }}
-        color="primary"
-        variant="faded"
-        {...getLabelProps()}
-      >
-        {children ? children : isSelected ? "Bold" :"Bold" }
-      </Chip>
-    </label>
+    <div
+      className={`drop-zone ${dragging ? 'dragging' : ''}`}
+      onDragEnter={handleDragEnter}
+      onDragOver={handleDragOver}
+      onDragLeave={handleDragLeave}
+      onDrop={handleDrop}
+    >
+      <p>Drag & Drop files here</p>
+      <input
+        type="file"
+        multiple
+        onChange={handleFileChange}
+        style={{ display: 'none' }}
+      />
+      <button onClick={() => document.querySelector('input').click()}>
+        Select Files
+      </button>
+      <div>
+        {files.map((file) => (
+          <div key={file.name}>{file.name}</div>
+        ))}
+      </div>
+    </div>
   );
-}
+};
+
+export default DragAndDrop;

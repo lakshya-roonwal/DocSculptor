@@ -1,12 +1,13 @@
 "use client"
 import React, { useState, CSSProperties } from 'react';
-
+import * as xlsx from 'xlsx'
 import {
   useCSVReader,
   lightenDarkenColor,
   formatFileSize,
   usePapaParse
 } from 'react-papaparse';
+import DragAndDrop from './TextComp';
 
 const GREY = '#CCC';
 const GREY_LIGHT = 'rgba(255, 255, 255, 0.4)';
@@ -96,7 +97,7 @@ const styles = {
       });
       return obj;
     });
-  
+    console.log(result)
     setDataObject(result);
   }
   const { CSVReader } = useCSVReader();
@@ -105,8 +106,29 @@ const styles = {
     DEFAULT_REMOVE_HOVER_COLOR
   );
 
+
+  // On Excel File
+  const readUploadFile=(e)=>{
+    e.preventDefault();
+    if (e.target.files) {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            const data = e.target.result;
+            const workbook = xlsx.read(data, { type: "array" });
+            const sheetName = workbook.SheetNames[0];
+            const worksheet = workbook.Sheets[sheetName];
+            const json = xlsx.utils.sheet_to_json(worksheet);
+            console.log(json)
+            setDataObject(json);
+        };
+        reader.readAsArrayBuffer(e.target.files[0]);
+    }
+  }
+
   return (
-    <CSVReader
+    <>
+  <input className='block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400' type="file" name="excelData" id="excelData" accept=".xlsx" onChange={readUploadFile} />
+    {/* <CSVReader
       onUploadAccepted={(results) => {
         convertToJson(results.data)
         setZoneHover(false);
@@ -170,6 +192,7 @@ const styles = {
           </div>
         </>
       )}
-    </CSVReader>
+    </CSVReader> */}
+    </>
   );
 }
