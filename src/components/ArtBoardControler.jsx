@@ -22,21 +22,9 @@ const ArtBoardControler = ({
 }) => {
 
   return (
-    <div className="artboard-controller h-screen p-4">
-    <div>
+    <div className="artboard-controller min-h-screen p-4 shadow-lg w-96">
       <h2 className="text-2xl font-bold">Artboard Controller</h2>
       <FileUploader setDataObject={setDataObject} />
-      <div className="artboard-elements w-96">
-        {textElements.map((textElement) => (
-          <div className="my-2 w-full">
-          <PropertyAccordian
-          handleDeleteElement={handleDeleteElement}
-            handleTextPropertyChange={handleTextPropertyChange}
-            textElement={textElement}
-          />
-          </div>
-        ))}
-      </div>
       <Tooltip content="Add Text To Document">
       <Button
         className="my-2"
@@ -46,6 +34,16 @@ const ArtBoardControler = ({
         Add Text
       </Button>
       </Tooltip>
+      <div className="artboard-elements h-[32rem] overflow-scroll">
+        {textElements.map((textElement) => (
+          <div className="my-2 w-full">
+          <PropertyAccordian
+          handleDeleteElement={handleDeleteElement}
+            handleTextPropertyChange={handleTextPropertyChange}
+            textElement={textElement}
+          />
+          </div>
+        ))}
       </div>
     </div>
   );

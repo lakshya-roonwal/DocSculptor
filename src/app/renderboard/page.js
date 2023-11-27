@@ -37,7 +37,7 @@ export const RenderBoard = React.forwardRef(({dataObject,renderElements,handlePr
   };
 
   return (
-    <div >
+    <div style={{width:"210mm"}} className="border-1">
     <div className="w-full bg-gray-200 flex justify-end p-2">
     <Tooltip content="Print Your Pdf">
       <Button isIconOnly onClick={handlePrint} color="success" variant="shadow">
@@ -45,7 +45,7 @@ export const RenderBoard = React.forwardRef(({dataObject,renderElements,handlePr
         </Button>
     </Tooltip>
     </div>
-    <div ref={ref} className="border-1">
+    <div ref={ref}>
       <div className="render-div">
       {dataObject.length>0?dataObject.map((testData)=>{
         return (
