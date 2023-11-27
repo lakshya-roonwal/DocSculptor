@@ -146,9 +146,19 @@ const PropertyControler = ({
           />
         </div>
       </div>
-      <div>
+      <div className="flex justify-between items-center">
+        <div className="color-input-group flex">
+          <input 
+            type="color" 
+            name="" 
+            id="" 
+            value={textElement.color}
+            onChange={(e) => handleTextPropertyChange(e, textElement, "color")}  
+            />
+            <p>{textElement.color}</p>
+        </div>
         <Button 
-          variant="default" 
+          variant="ghost" 
           isIconOnly  
           onClick={()=>{
             handleDeleteElement(textElement.id)

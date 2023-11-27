@@ -64,7 +64,7 @@ export const RenderBoard = React.forwardRef(({dataObject,renderElements,handlePr
               }}
             >
               <p
-                style={{ fontSize: textElement.fontSize + "px",fontFamily:textElement.fontFamily }}
+                style={{ fontSize: textElement.fontSize + "px",fontFamily:textElement.fontFamily,color:textElement.color }}
                 className={`
                 ${textElement.isBold ? `font-bold` : ""}
                 ${textElement.isItalic ? `italic` : ""}

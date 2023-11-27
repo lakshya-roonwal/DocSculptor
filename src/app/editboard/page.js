@@ -24,9 +24,11 @@ const Artboard = () => {
   const addText = () => {
     const newText = {
       id: Date.now(),
+
       x: 10,
       y: 10,
       fontSize: 16,
+      color:"#000",
       isBold: false,
       isItalic:false,
       isUnderline:false,

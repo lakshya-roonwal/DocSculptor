@@ -35,7 +35,7 @@ const ArtBoardRenderer = ({
             onMouseDown={(e) => handleMouseDown(e, textElement)}
           >
             <p
-              style={{ fontSize: textElement.fontSize + "px",fontFamily:textElement.fontFamily }}
+              style={{ fontSize: textElement.fontSize + "px",fontFamily:textElement.fontFamily,color:textElement.color }}
               className={`
                 ${textElement.isBold ? `font-bold` : ""}
                 ${textElement.isItalic ? `italic` : ""}
@@ -53,7 +53,7 @@ const ArtBoardRenderer = ({
       <Tab key="multipageboard" title="Your Pdf">
       <div
         className="overflow-y-scroll "
-        style={{ height: "297mm",width:"210mm" }}
+        style={{ height: "297mm"}}
       >
         <RenderBoard
           handlePrint={handlePrint}
