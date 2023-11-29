@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import {NextUIProvider} from "@nextui-org/react";
-import React, { useState,useRef  } from "react";
+import React, { useState,useRef,useEffect  } from "react";
 import { useReactToPrint } from 'react-to-print';
 import ArtBoardControler from "@/components/ArtBoardControler";
 import ArtBoardRenderer from "@/components/ArtBoardRenderer";
@@ -12,13 +12,22 @@ const Artboard = () => {
 
 
   // States of The App
-  const [textElements, setTextElements] = useState([]);
+  const [textElements, setTextElements] = useState(JSON.parse(localStorage.getItem("ArtBoardElements")));
   const [dataObject, setDataObject] = useState([]);
   const [isDragging, setIsDragging] = useState(false);
   const [selectedElement, setSelectedElement] = useState(null);
   const [offsetX, setOffsetX] = useState(0);
   const [offsetY, setOffsetY] = useState(0);
   const [editableText, setEditableText] = useState(""); // State to store editable text
+
+
+  // For Saving The Data
+  useEffect(() => {
+    localStorage.setItem('ArtBoardElements',JSON.stringify(textElements))
+  }, [textElements])
+  
+  
+
 
   // Add Text To the Text Elements Array
   const addText = () => {
