@@ -2,28 +2,50 @@
 import Link from "next/link";
 import {NextUIProvider} from "@nextui-org/react";
 import React, { useState,useRef,useEffect  } from "react";
+import { useSearchParams } from 'next/navigation'
+import { useRouter } from 'next/navigation'
 import { useReactToPrint } from 'react-to-print';
 import ArtBoardControler from "@/components/ArtBoardControler";
 import ArtBoardRenderer from "@/components/ArtBoardRenderer";
 import SecondaryControler from "@/components/SecondaryControler";
 
 const Artboard = () => {
+
+  // Getting Router
+  const router = useRouter()
+
+  // Getting the Query Parameter
+  const searchParams = useSearchParams()
+  const document = searchParams.get('document')
+
   // Forr Removing Dark Mode
 
 
   // States of The App
-  const [textElements, setTextElements] = useState(JSON.parse(localStorage.getItem("ArtBoardElements")));
+  const [textElements, setTextElements] = useState([]);
   const [dataObject, setDataObject] = useState([]);
   const [isDragging, setIsDragging] = useState(false);
   const [selectedElement, setSelectedElement] = useState(null);
   const [offsetX, setOffsetX] = useState(0);
   const [offsetY, setOffsetY] = useState(0);
-  const [editableText, setEditableText] = useState(""); // State to store editable text
 
+  // For Getting the Data
+  useEffect(()=>{
+  // Getting Query
+  console.log(document)
+
+  // Checking Weather The search Params is available as a localstorage key
+  const isKeyAvailable = localStorage.getItem(document) !== null;
+  if (isKeyAvailable) {
+    setTextElements(JSON.parse(localStorage.getItem(document)))
+  } else {
+    router.push('/404');
+  }
+  },[])
 
   // For Saving The Data
   useEffect(() => {
-    localStorage.setItem('ArtBoardElements',JSON.stringify(textElements))
+    localStorage.setItem(document,JSON.stringify(textElements))
   }, [textElements])
   
   

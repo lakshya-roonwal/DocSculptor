@@ -19,6 +19,7 @@
     "react-dom": "^18",
     "react-icons": "^4.12.0",
     "react-papaparse": "^4.4.0",
+    "react-slugify": "^3.0.3",
     "react-to-print": "^2.14.15",
     "xlsx": "^0.18.5"
   },
