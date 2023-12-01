@@ -14,6 +14,7 @@ import {
   useDisclosure,
 } from "@nextui-org/react";
 import { useState } from "react";
+import DocumentCard from "@/components/DocumentCard";
 
 export default function Home() {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
@@ -60,12 +61,15 @@ export default function Home() {
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-16">
-      <div className="container border-2">
-        <div className="create-documents">
-          <h2 className="text-2xl font-bold underline">Create Document</h2>
-          <Button isIconOnly variant="solid" color="primary" onPress={onOpen}>
-            <MdAdd />
+      <div className="container">
+        <div className="create-documents flex flex-col items-start gap-2 my-2">
+          <h2 className="text-base ">Start a new document</h2>
+          <div className="flex flex-col items-center">
+          <Button isIconOnly variant="ghost" color="primary" className="w-36 h-52" onPress={onOpen}>
+            <MdAdd size={"50%"}/>
           </Button>
+            <p className="font-semibold">Blank Document</p>
+          </div>
         </div>
         <AddDocumentModal
           isOpen={isOpen}
@@ -76,16 +80,11 @@ export default function Home() {
           handleSingleDocumentChange={handleSingleDocumentChange}
           addNewDocument={addNewDocument}
         />
-        <div className="documents">
-          <h1 className="text-2xl font-bold">Your Documents</h1>
+        <div className="documents p-2">
+          <h1 className="text-base font-bold my-2">Recent Documents</h1>
           {documents.length>0?documents.map((document)=>{
             return (
-            <div className="document">
-              <h2 className="text-2xl-font-bold">{document.documentName}</h2>
-              <Link href={{pathname:`/editboard/`,query:{document:document.documentSlug}}}>
-                <p>Go To Document</p>
-              </Link>
-            </div>
+            <DocumentCard document={document}/>
             )
           }):"No Documents to Present"}
         </div>

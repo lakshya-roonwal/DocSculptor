@@ -17,37 +17,40 @@ const Artboard = () => {
   // Getting the Query Parameter
   const searchParams = useSearchParams()
   const document = searchParams.get('document')
+  // Checking Weather The search Params is available as a localstorage key
+  const isKeyAvailable = localStorage.getItem(document) !== null;
 
   // Forr Removing Dark Mode
 
 
+    // For Getting the Data
+    useEffect(()=>{
+      // Getting Query
+      console.log(document)
+    
+      if (isKeyAvailable) {
+        setTextElements(JSON.parse(localStorage.getItem(document)))
+      } else {
+        router.push('/404');
+        localStorage.removeItem(document)
+      }
+      },[])
+    
+
+
   // States of The App
-  const [textElements, setTextElements] = useState([]);
+  const [textElements, setTextElements] = useState(isKeyAvailable?JSON.parse(localStorage.getItem(document)):router.push('/404'));
   const [dataObject, setDataObject] = useState([]);
   const [isDragging, setIsDragging] = useState(false);
   const [selectedElement, setSelectedElement] = useState(null);
   const [offsetX, setOffsetX] = useState(0);
   const [offsetY, setOffsetY] = useState(0);
 
-  // For Getting the Data
-  useEffect(()=>{
-  // Getting Query
-  console.log(document)
-
-  // Checking Weather The search Params is available as a localstorage key
-  const isKeyAvailable = localStorage.getItem(document) !== null;
-  if (isKeyAvailable) {
-    setTextElements(JSON.parse(localStorage.getItem(document)))
-  } else {
-    router.push('/404');
-  }
-  },[])
 
   // For Saving The Data
   useEffect(() => {
     localStorage.setItem(document,JSON.stringify(textElements))
   }, [textElements])
-  
   
 
 
@@ -119,7 +122,7 @@ const Artboard = () => {
     }
     else if(property==="x"||property==="y")
     {
-      newTextProperty = JSON.parse(event.target.value);
+      newTextProperty = Number(event.target.value);
     }
     else
     {
