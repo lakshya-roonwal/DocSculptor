@@ -42,7 +42,10 @@ const AddDocumentModal = ({
               <Button color="danger" variant="flat" onPress={onClose}>
                 Close
               </Button>
-              <Button color="primary" onPress={addNewDocument}>
+              <Button color="primary" onPress={(e)=>{
+                addNewDocument(e);
+                onClose();
+              }} >
                 Add
               </Button>
             </ModalFooter>

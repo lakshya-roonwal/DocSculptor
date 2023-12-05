@@ -55,6 +55,7 @@ export default function Home() {
       localStorage.setItem("AllDocuments",JSON.stringify(oldDocuemtns))
       localStorage.setItem(singleDocument.documentSlug,JSON.stringify([]))
       setDocuments(JSON.parse(localStorage.getItem("AllDocuments")))
+
   }
 
   console.log(documents)
@@ -82,11 +83,13 @@ export default function Home() {
         />
         <div className="documents p-2">
           <h1 className="text-base font-bold my-2">Recent Documents</h1>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
           {documents.length>0?documents.map((document)=>{
             return (
             <DocumentCard document={document}/>
             )
           }):"No Documents to Present"}
+          </div>
         </div>
       </div>
     </main>

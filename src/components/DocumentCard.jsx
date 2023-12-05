@@ -24,7 +24,7 @@ const DocumentCard = ({ document }) => {
               query: { document: document.documentSlug },
             }}
           >
-            <h2 className="text-xl font-bold">{document.documentName}</h2>
+            <h2 className="text-md">{document.documentName}</h2>
           </Link>
 
           <Dropdown>
