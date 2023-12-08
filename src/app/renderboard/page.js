@@ -3,6 +3,7 @@ import React from "react";
 import { useRouter } from 'next/navigation';
 import { Button, Tooltip } from "@nextui-org/react";
 import { MdLocalPrintshop } from "react-icons/md";
+import ArtBoard from "@/components/ArtBoard";
 
 export const RenderBoard = React.forwardRef(({dataObject,renderElements,handlePrint}, ref) =>   {
 
@@ -47,35 +48,14 @@ export const RenderBoard = React.forwardRef(({dataObject,renderElements,handlePr
     </div>
     <div ref={ref}>
       <div className="render-div">
-      {dataObject.length>0?dataObject.map((testData)=>{
+      {dataObject.length>0?dataObject.map((fileData)=>{
         return (
-        <div
-          className="document-render"
-          style={{ width: "210mm", height: "297mm", position: "relative" }}
-        >
-          {renderElements.map((textElement) => (
-            <div
-              key={textElement.id}
-              className="text-element"
-              style={{
-                left: textElement.x,
-                top: textElement.y,
-                position: "absolute",
-              }}
-            >
-              <p
-                style={{ fontSize: textElement.fontSize + "px",fontFamily:textElement.fontFamily,color:textElement.color }}
-                className={`
-                ${textElement.isBold ? `font-bold` : ""}
-                ${textElement.isItalic ? `italic` : ""}
-                ${textElement.isUnderline ? `underline` : ""}
-                `}
-              >
-                {convertToRendringText(textElement.content,testData)}
-              </p>
-            </div>
-          ))}
-        </div>
+          <ArtBoard
+          textElements={renderElements}
+          fileData={fileData}
+          convertToRendringText={convertToRendringText}
+          isRendingBoard={true}
+        />
         )
       }):<h2 className="text-center py-10 text-2xl font-bold text-green-600">Add Excel Data</h2>}
       </div>

@@ -6,11 +6,13 @@ const ArtBoard = ({
     textElements,
     handleMouseDown,
     handleTextBlur,
-    isRendingBoard
+    isRendingBoard,
+    convertToRendringText,
+    fileData
 }) => {
   return (
     <div
-    className="relative overflow-hidden border-2 border-black"
+    className="relative overflow-hidden"
     id="artboard"
     style={{ width: "210mm", height: "297mm" }}
     onMouseMove={handleMouseMove}
@@ -19,7 +21,7 @@ const ArtBoard = ({
     {textElements.length>0?textElements.map((textElement) => (
       <div
         key={textElement.id}
-        className="text-element absolute cursor-move whitespace-nowrap"
+        className="text-element absolute cursor-move whitespace-nowrap border-1"
         style={{
           left: textElement.x,
           top: textElement.y,
@@ -36,7 +38,7 @@ const ArtBoard = ({
             `}
           onBlur={() => handleTextBlur(textElement)}
         >
-          {textElement.content}
+          {isRendingBoard?convertToRendringText(textElement.content,fileData):textElement.content}
         </p>
       </div>
     )):<h2 className="text-center py-10 text-2xl font-bold text-green-600">Add Some Elements</h2>}

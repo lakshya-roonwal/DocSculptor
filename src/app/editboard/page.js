@@ -58,7 +58,6 @@ const Artboard = () => {
   const addText = () => {
     const newText = {
       id: Date.now(),
-
       x: 10,
       y: 10,
       fontSize: 16,
@@ -83,8 +82,8 @@ const Artboard = () => {
     if (isDragging && selectedElement) {
       const updatedElement = {
         ...selectedElement,
-        x: e.clientX - offsetX,
-        y: e.clientY - offsetY,
+        x: Math.max(e.clientX - offsetX,0),
+        y: Math.max(e.clientY - offsetY,0),
       };
       setTextElements((prevElements) =>
         prevElements.map((element) =>

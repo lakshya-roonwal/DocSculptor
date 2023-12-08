@@ -17,6 +17,7 @@ const ArtBoardRenderer = ({
     <div className="artboards flex flex-col">
     <Tabs>
     <Tab key="singleboard" title="Edit Doc">
+    <div className="border-1">
       <ArtBoard
           handleMouseMove={handleMouseMove}
           handleMouseUp={handleMouseUp}
@@ -25,6 +26,7 @@ const ArtBoardRenderer = ({
           handleTextBlur={handleTextBlur}
           isRendingBoard={false}
       />
+    </div>
       </Tab>
       <Tab key="multipageboard" title="Your Pdf">
       <div
