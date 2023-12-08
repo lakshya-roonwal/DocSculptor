@@ -10,6 +10,7 @@ const ArtBoardRenderer = ({
   handleMouseDown,
   handleTextBlur,
   componentRef,
+  setTextElements,
   dataObject,
   handlePrint
 }) => {
@@ -19,6 +20,7 @@ const ArtBoardRenderer = ({
     <Tab key="singleboard" title="Edit Doc">
     <div className="border-1">
       <ArtBoard
+          setTextElements={setTextElements}
           handleMouseMove={handleMouseMove}
           handleMouseUp={handleMouseUp}
           textElements={textElements}

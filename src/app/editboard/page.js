@@ -47,6 +47,7 @@ const Artboard = () => {
   const [offsetY, setOffsetY] = useState(0);
 
 
+
   // For Saving The Data
   useEffect(() => {
     localStorage.setItem(document,JSON.stringify(textElements))
@@ -170,6 +171,7 @@ const Artboard = () => {
       <ArtBoardRenderer
           handleMouseMove={handleMouseMove}
           handleMouseUp={handleMouseUp}
+          setTextElements={setTextElements}
           textElements={textElements}
           handleMouseDown={handleMouseDown}
           handleTextBlur={handleTextBlur}
