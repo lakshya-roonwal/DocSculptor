@@ -15,6 +15,7 @@ import {
 } from "@nextui-org/react";
 import { useState } from "react";
 import DocumentCard from "@/components/DocumentCard";
+import Navbar from "@/components/HomeNavbar";
 
 export default function Home() {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
@@ -61,6 +62,8 @@ export default function Home() {
   console.log(documents)
 
   return (
+    <>
+    <Navbar/>
     <main className="flex min-h-screen flex-col items-center justify-between p-16">
       <div className="container">
         <div className="create-documents flex flex-col items-start gap-2 my-2">
@@ -93,5 +96,6 @@ export default function Home() {
         </div>
       </div>
     </main>
+    </>
   );
 }

@@ -10,37 +10,13 @@ const ArtBoard = ({
   convertToRendringText,
   fileData,
   setTextElements,
+  editableTextElements,
+  handleDoubleClick,
+  handleTextInputChange,
+  handleTextElementBlur,
+  selectedElementId,
+  handleSingleClick
 }) => {
-  const [editableTextElements, setEditableTextElements] = useState({});
-
-  // Function to handle double-click on a text element
-  const handleDoubleClick = (textElement) => {
-    setEditableTextElements((prevEditableTextElements) => ({
-      ...prevEditableTextElements,
-      [textElement.id]: true,
-    }));
-  };
-
-  // Function to handle text input changes
-  const handleTextInputChange = (e, textElement) => {
-    const newText = e.target.value;
-    setTextElements((prevElements) =>
-      prevElements.map((element) =>
-        element.id === textElement.id
-          ? { ...element, content: newText }
-          : element
-      )
-    );
-  };
-
-  // Function to handle text input blur and update the state
-  const handleTextElementBlur = (textElement) => {
-    setEditableTextElements((prevEditableTextElements) => ({
-      ...prevEditableTextElements,
-      [textElement.id]: false,
-    }));
-  };
-
   return (
     <div
       className="relative overflow-hidden"
@@ -53,12 +29,13 @@ const ArtBoard = ({
         textElements.map((textElement) => (
           <div
             key={textElement.id}
-            className="text-element absolute cursor-move whitespace-nowrap border-1"
+            className={`text-element absolute cursor-move whitespace-nowrap ${selectedElementId === textElement.id ? 'border-1' : ''}`}
             style={{
               left: textElement.x,
               top: textElement.y,
               maxWidth: "210mm",
             }}
+            focusout={() => handleTextElementBlur(textElement)}
             onMouseDown={(e) =>
               !isRendingBoard ? handleMouseDown(e, textElement) : null
             }
@@ -79,7 +56,6 @@ const ArtBoard = ({
                 `}
                 value={textElement.content}
                 onChange={(e) => handleTextInputChange(e, textElement)}
-                onBlur={() => handleTextElementBlur(textElement)}
               />
             ) : (
               <p
@@ -96,6 +72,11 @@ const ArtBoard = ({
                 onDoubleClick={() =>
                   !isRendingBoard
                     ? handleDoubleClick(textElement)
+                    : console.log("Not Worked")
+                }
+                onClick={() =>
+                  !isRendingBoard
+                    ? handleSingleClick(textElement)
                     : console.log("Not Worked")
                 }
               >

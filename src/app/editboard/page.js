@@ -20,10 +20,7 @@ const Artboard = () => {
   // Checking Weather The search Params is available as a localstorage key
   const isKeyAvailable = localStorage.getItem(document) !== null;
 
-  // Forr Removing Dark Mode
-
-
-    // For Getting the Data
+  // For Getting the Data
     useEffect(()=>{
       // Getting Query
       console.log(document)
@@ -42,13 +39,13 @@ const Artboard = () => {
   const [textElements, setTextElements] = useState(isKeyAvailable?JSON.parse(localStorage.getItem(document)):router.push('/404'));
   const [dataObject, setDataObject] = useState([]);
   const [isDragging, setIsDragging] = useState(false);
-  const [selectedElement, setSelectedElement] = useState(null);
+  const [selectedDragElement, setSelectedDragElement] = useState(null);
+  const [selectedElementId, setSelectedElementId] = useState(null);
   const [offsetX, setOffsetX] = useState(0);
   const [offsetY, setOffsetY] = useState(0);
+  const [editableTextElements, setEditableTextElements] = useState({});
 
-
-
-  // For Saving The Data
+    // For Saving The Data
   useEffect(() => {
     localStorage.setItem(document,JSON.stringify(textElements))
   }, [textElements])
@@ -75,27 +72,27 @@ const Artboard = () => {
   // Element Movement Functions
   const handleMouseDown = (e, textElement) => {
     setIsDragging(true);
-    setSelectedElement(textElement);
+    setSelectedDragElement(textElement);
     setOffsetX(e.clientX - textElement.x);
     setOffsetY(e.clientY - textElement.y);
   };
   const handleMouseMove = (e) => {
-    if (isDragging && selectedElement) {
+    if (isDragging && selectedDragElement) {
       const updatedElement = {
-        ...selectedElement,
+        ...selectedDragElement,
         x: Math.max(e.clientX - offsetX,0),
         y: Math.max(e.clientY - offsetY,0),
       };
       setTextElements((prevElements) =>
         prevElements.map((element) =>
-          element.id === selectedElement.id ? updatedElement : element
+          element.id === selectedDragElement.id ? updatedElement : element
         )
       );
     }
   };
   const handleMouseUp = () => {
     setIsDragging(false);
-    setSelectedElement(null);
+    setSelectedDragElement(null);
   };
   const handleTextBlur = (textElement) => {
     // Update the text content in the state
@@ -147,8 +144,43 @@ const Artboard = () => {
 
     // Update the state with the new array
     setTextElements(newTextElements);
-
   }
+
+  // Function to handle double-click on a text element
+  const handleDoubleClick = (textElement) => {
+    setEditableTextElements((prevEditableTextElements) => ({
+      ...prevEditableTextElements,
+      [textElement.id]: true,
+    }));
+  };
+
+  const handleSingleClick=(textElement)=>{
+    setSelectedElementId(textElement.id);
+  }
+
+  // Function to handle text input changes
+  const handleTextInputChange = (e, textElement) => {
+    const newText = e.target.value;
+    setTextElements((prevElements) =>
+      prevElements.map((element) =>
+        element.id === textElement.id
+          ? { ...element, content: newText }
+          : element
+      )
+    );
+  };
+
+  // Function to handle text input blur and update the state
+  const handleTextElementBlur = (textElement) => {
+    setEditableTextElements((prevEditableTextElements) => ({
+      ...prevEditableTextElements,
+      [textElement.id]: false,
+    }));
+    console.log(selectedElementId);
+    setSelectedElementId(null);
+    console.log(selectedElementId);
+  };
+
 
   // Component Ref For Print Component
   const componentRef = useRef();
@@ -178,6 +210,12 @@ const Artboard = () => {
           componentRef={componentRef}
           handlePrint={handlePrint}
           dataObject={dataObject}
+          editableTextElements={editableTextElements}
+          handleDoubleClick={handleDoubleClick}
+          handleTextInputChange={handleTextInputChange}
+          handleTextElementBlur={handleTextElementBlur}
+          selectedElementId={selectedElementId}
+          handleSingleClick={handleSingleClick}
       />
       <SecondaryControler/>
     </div>
