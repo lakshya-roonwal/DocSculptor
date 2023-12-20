@@ -14,7 +14,7 @@ const ArtBoard = ({
   handleDoubleClick,
   handleTextInputChange,
   handleTextElementBlur,
-  selectedElementId,
+  selectedElement,
   handleSingleClick
 }) => {
   return (
@@ -29,7 +29,7 @@ const ArtBoard = ({
         textElements.map((textElement) => (
           <div
             key={textElement.id}
-            className={`text-element absolute cursor-move whitespace-nowrap ${selectedElementId === textElement.id ? 'border-1' : ''}`}
+            className={`text-element absolute cursor-move whitespace-nowrap ${selectedElement === textElement.id ? 'border-1' : ''}`}
             style={{
               left: textElement.x,
               top: textElement.y,
@@ -40,7 +40,7 @@ const ArtBoard = ({
               !isRendingBoard ? handleMouseDown(e, textElement) : null
             }
           >
-            {editableTextElements[textElement.id] ? (
+            {(isRendingBoard?false:editableTextElements[textElement.id]) ? (
               <input
                 type="text"
                 style={{

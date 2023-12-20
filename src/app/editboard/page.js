@@ -40,7 +40,7 @@ const Artboard = () => {
   const [dataObject, setDataObject] = useState([]);
   const [isDragging, setIsDragging] = useState(false);
   const [selectedDragElement, setSelectedDragElement] = useState(null);
-  const [selectedElementId, setSelectedElementId] = useState(null);
+  const [selectedElement, setSelectedElement] = useState({id:""});
   const [offsetX, setOffsetX] = useState(0);
   const [offsetY, setOffsetY] = useState(0);
   const [editableTextElements, setEditableTextElements] = useState({});
@@ -155,7 +155,7 @@ const Artboard = () => {
   };
 
   const handleSingleClick=(textElement)=>{
-    setSelectedElementId(textElement.id);
+    setSelectedElement(textElement);
   }
 
   // Function to handle text input changes
@@ -176,9 +176,9 @@ const Artboard = () => {
       ...prevEditableTextElements,
       [textElement.id]: false,
     }));
-    console.log(selectedElementId);
-    setSelectedElementId(null);
-    console.log(selectedElementId);
+    console.log(selectedElement);
+    setSelectedElement(null);
+    console.log(selectedElement);
   };
 
 
@@ -196,6 +196,7 @@ const Artboard = () => {
         textElements={textElements}
         setDataObject={setDataObject}
         addText={addText}
+        selectedElement={selectedElement}
         handlePrint={handlePrint}
         handleDeleteElement={handleDeleteElement}
         handleTextPropertyChange={handleTextPropertyChange}
@@ -214,7 +215,7 @@ const Artboard = () => {
           handleDoubleClick={handleDoubleClick}
           handleTextInputChange={handleTextInputChange}
           handleTextElementBlur={handleTextElementBlur}
-          selectedElementId={selectedElementId}
+          selectedElement={selectedElement}
           handleSingleClick={handleSingleClick}
       />
       <SecondaryControler/>

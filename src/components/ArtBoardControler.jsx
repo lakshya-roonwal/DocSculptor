@@ -12,12 +12,14 @@ import { BsTypeBold } from "react-icons/bs";
 // Other Components
 import FileUploader from "./FileUploader";
 import PropertyAccordian from "./PropertyAccordian";
+import PropertyControler from "./PropertyControler";
 
 const ArtBoardControler = ({
   setDataObject,
   textElements,
   addText,
   handleDeleteElement,
+  selectedElement,
   handleTextPropertyChange,
 }) => {
 
@@ -35,7 +37,13 @@ const ArtBoardControler = ({
       </Button>
       </Tooltip>
       <div className="artboard-elements h-[32rem] overflow-scroll">
-        {textElements.map((textElement) => (
+      <PropertyControler
+        handleTextPropertyChange={handleTextPropertyChange}
+        textElements={textElements}
+        textElement={selectedElement}
+        handleDeleteElement={handleDeleteElement}
+      />
+        {/* {textElements.map((textElement) => (
           <div className="my-2 w-full">
           <PropertyAccordian
           handleDeleteElement={handleDeleteElement}
@@ -43,7 +51,7 @@ const ArtBoardControler = ({
             textElement={textElement}
           />
           </div>
-        ))}
+        ))} */}
       </div>
     </div>
   );

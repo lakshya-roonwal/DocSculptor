@@ -17,7 +17,7 @@ const ArtBoardRenderer = ({
   handleDoubleClick,
   handleTextInputChange,
   handleTextElementBlur,
-  selectedElementId,
+  selectedElement,
   handleSingleClick
 }) => {
   return (
@@ -34,7 +34,7 @@ const ArtBoardRenderer = ({
               handleTextBlur={handleTextBlur}
               isRendingBoard={false}
               editableTextElements={editableTextElements}
-              selectedElementId={selectedElementId}
+              selectedElement={selectedElement}
               handleDoubleClick={handleDoubleClick}
               handleTextInputChange={handleTextInputChange}
               handleTextElementBlur={handleTextElementBlur}
