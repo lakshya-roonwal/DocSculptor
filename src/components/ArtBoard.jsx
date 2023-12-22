@@ -14,7 +14,6 @@ const ArtBoard = ({
   handleDoubleClick,
   handleTextInputChange,
   handleTextElementBlur,
-  selectedElement,
   handleSingleClick
 }) => {
   return (
@@ -29,12 +28,12 @@ const ArtBoard = ({
         textElements.map((textElement) => (
           <div
             key={textElement.id}
-            className={`text-element absolute cursor-move whitespace-nowrap ${selectedElement === textElement.id ? 'border-1' : ''}`}
+            className={`text-element absolute cursor-move whitespace-nowrap ${!isRendingBoard?textElement.isSelected?'outline-dashed outline-2 outline-offset-4 outline-blue-700':"":null}`}
             style={{
               left: textElement.x,
               top: textElement.y,
               maxWidth: "210mm",
-            }}
+            }}  
             focusout={() => handleTextElementBlur(textElement)}
             onMouseDown={(e) =>
               !isRendingBoard ? handleMouseDown(e, textElement) : null
@@ -55,6 +54,9 @@ const ArtBoard = ({
                   ${textElement.isUnderline ? "underline" : ""}
                 `}
                 value={textElement.content}
+                onBlur={()=>{
+                  handleTextElementBlur(textElement)
+                }}
                 onChange={(e) => handleTextInputChange(e, textElement)}
               />
             ) : (

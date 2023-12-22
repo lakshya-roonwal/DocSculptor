@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 
 // Next UI Imports
@@ -11,7 +11,6 @@ import { BsTypeBold } from "react-icons/bs";
 
 // Other Components
 import FileUploader from "./FileUploader";
-import PropertyAccordian from "./PropertyAccordian";
 import PropertyControler from "./PropertyControler";
 
 const ArtBoardControler = ({
@@ -19,9 +18,25 @@ const ArtBoardControler = ({
   textElements,
   addText,
   handleDeleteElement,
-  selectedElement,
   handleTextPropertyChange,
 }) => {
+  const [selectedElement, setselectedElement] = useState([{
+      id:"",
+      x:"",
+      y:"",
+      fontSize:"",
+      color:"",
+      isSelected:"",
+      isBold:"",
+      isItalic:"",
+      isUnderline:"",
+      fontFamily:"",
+      content:"",
+  }])
+  useEffect(() => {
+    setselectedElement(textElements.filter((element) => element.isSelected))
+  }, [textElements])
+  
 
   return (
     <div className="artboard-controller min-h-screen p-4 shadow-lg w-96">
@@ -39,8 +54,7 @@ const ArtBoardControler = ({
       <div className="artboard-elements h-[32rem] overflow-scroll">
       <PropertyControler
         handleTextPropertyChange={handleTextPropertyChange}
-        textElements={textElements}
-        textElement={selectedElement}
+        selectedElement={selectedElement}
         handleDeleteElement={handleDeleteElement}
       />
         {/* {textElements.map((textElement) => (

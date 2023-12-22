@@ -4,10 +4,10 @@ import {NextUIProvider} from "@nextui-org/react";
 import React, { useState,useRef,useEffect  } from "react";
 import { useSearchParams } from 'next/navigation'
 import { useRouter } from 'next/navigation'
-import { useReactToPrint } from 'react-to-print';
-import ArtBoardControler from "@/components/ArtBoardControler";
-import ArtBoardRenderer from "@/components/ArtBoardRenderer";
-import SecondaryControler from "@/components/SecondaryControler";
+import { useReactToPrint } from 'react-to-print'
+import ArtBoardControler from "@/components/ArtBoardControler"
+import ArtBoardRenderer from "@/components/ArtBoardRenderer"
+import SecondaryControler from "@/components/SecondaryControler"
 
 const Artboard = () => {
 
@@ -40,7 +40,6 @@ const Artboard = () => {
   const [dataObject, setDataObject] = useState([]);
   const [isDragging, setIsDragging] = useState(false);
   const [selectedDragElement, setSelectedDragElement] = useState(null);
-  const [selectedElement, setSelectedElement] = useState({id:""});
   const [offsetX, setOffsetX] = useState(0);
   const [offsetY, setOffsetY] = useState(0);
   const [editableTextElements, setEditableTextElements] = useState({});
@@ -49,139 +48,143 @@ const Artboard = () => {
   useEffect(() => {
     localStorage.setItem(document,JSON.stringify(textElements))
   }, [textElements])
-  
 
 
   // Add Text To the Text Elements Array
-  const addText = () => {
-    const newText = {
-      id: Date.now(),
-      x: 10,
-      y: 10,
-      fontSize: 16,
-      color:"#000",
-      isBold: false,
-      isItalic:false,
-      isUnderline:false,
-      fontFamily:"__Inter_Fallback_725fdb,'Inter', sans-serif",
-      content: "Lorem Ipsum",
+const addText = () => {
+  const newText = {
+    id: Date.now(),
+    x: 10,
+    y: 10,
+    fontSize: 16,
+    color: "#000",
+    isSelected:false,
+    isBold: false,
+    isItalic: false,
+    isUnderline: false,
+    fontFamily: "__Inter_Fallback_725fdb,'Inter', sans-serif",
+    content: "Lorem Ipsum",
+  };
+  setTextElements([...textElements, newText]);
+};
+
+// Element Movement Functions
+const handleMouseDown = (e, textElement) => {
+  setIsDragging(true);
+  setSelectedDragElement(textElement);
+  setOffsetX(e.clientX - textElement.x);
+  setOffsetY(e.clientY - textElement.y);
+};
+const handleMouseMove = (e) => {
+  if (isDragging && selectedDragElement) {
+    const updatedElement = {
+      ...selectedDragElement,
+      x: Math.max(e.clientX - offsetX, 0),
+      y: Math.max(e.clientY - offsetY, 0),
     };
-    setTextElements([...textElements, newText]);
-  };
-
-  // Element Movement Functions
-  const handleMouseDown = (e, textElement) => {
-    setIsDragging(true);
-    setSelectedDragElement(textElement);
-    setOffsetX(e.clientX - textElement.x);
-    setOffsetY(e.clientY - textElement.y);
-  };
-  const handleMouseMove = (e) => {
-    if (isDragging && selectedDragElement) {
-      const updatedElement = {
-        ...selectedDragElement,
-        x: Math.max(e.clientX - offsetX,0),
-        y: Math.max(e.clientY - offsetY,0),
-      };
-      setTextElements((prevElements) =>
-        prevElements.map((element) =>
-          element.id === selectedDragElement.id ? updatedElement : element
-        )
-      );
-    }
-  };
-  const handleMouseUp = () => {
-    setIsDragging(false);
-    setSelectedDragElement(null);
-  };
-  const handleTextBlur = (textElement) => {
-    // Update the text content in the state
     setTextElements((prevElements) =>
       prevElements.map((element) =>
-        element.id === textElement.id
-          ? { ...element, text: editableText }
-          : element
+        element.id === selectedDragElement.id ? updatedElement : element
       )
     );
-  };
-
-  // Text Property Change : Passed to PropertyContorler 
-  const handleTextPropertyChange=(event,textElement,property)=>{
-    let newTextProperty;
-    if(property==="isBold"||property==="isItalic"||property==="isUnderline")
-    {
-      newTextProperty = event; //this is not event in the case of isBold the value is directy passed
-      if (newTextProperty) {
-        newTextProperty = false;
-      } else {
-        newTextProperty = true;
-      }
-    }
-    else if(property==="x"||property==="y")
-    {
-      newTextProperty = Number(event.target.value);
-    }
-    else
-    {
-      newTextProperty = event.target.value;
-    }
-    console.log("Text Property:"+newTextProperty);
-    console.log(typeof newTextProperty)
-    setTextElements((prevElements) =>
-      prevElements.map((element) =>
-        element.id === textElement.id
-          ? { ...element, [property]: newTextProperty }
-          : element
-      )
-    );
-    console.log(textElements);
   }
+};
+const handleMouseUp = () => {
+  setIsDragging(false);
+  setSelectedDragElement(null);
+};
+const handleTextBlur = (textElement) => {
+  // Update the text content in the state
+  setTextElements((prevElements) =>
+    prevElements.map((element) =>
+      element.id === textElement.id
+        ? { ...element, text: editableText }
+        : element
+    )
+  );
+};
 
-  // Delete Text Element
-  const handleDeleteElement=(id)=>{
-    console.log(id);
-    const newTextElements = textElements.filter(obj => obj.id !== id);
-
-    // Update the state with the new array
-    setTextElements(newTextElements);
+// Text Property Change : Passed to PropertyContorler
+const handleTextPropertyChange = (event, textElement, property) => {
+  let newTextProperty;
+  if (
+    property === "isBold" ||
+    property === "isItalic" ||
+    property === "isUnderline"
+  ) {
+    newTextProperty = event; //this is not event in the case of isBold the value is directy passed
+    if (newTextProperty) {
+      newTextProperty = false;
+    } else {
+      newTextProperty = true;
+    }
+  } else if (property === "x" || property === "y") {
+    newTextProperty = Number(event.target.value);
+  } else {
+    newTextProperty = event.target.value;
   }
+  console.log("Text Property:" + newTextProperty);
+  console.log(typeof newTextProperty);
+  setTextElements((prevElements) =>
+    prevElements.map((element) =>
+      element.id === textElement.id
+        ? { ...element, [property]: newTextProperty }
+        : element
+    )
+  );
+  console.log(textElements);
+};
 
-  // Function to handle double-click on a text element
-  const handleDoubleClick = (textElement) => {
-    setEditableTextElements((prevEditableTextElements) => ({
-      ...prevEditableTextElements,
-      [textElement.id]: true,
-    }));
-  };
+// Delete Text Element
+const handleDeleteElement = (id) => {
+  console.log(id);
+  const newTextElements = textElements.filter((obj) => obj.id !== id);
 
-  const handleSingleClick=(textElement)=>{
-    setSelectedElement(textElement);
-  }
+  // Update the state with the new array
+  setTextElements(newTextElements);
+};
 
-  // Function to handle text input changes
-  const handleTextInputChange = (e, textElement) => {
-    const newText = e.target.value;
-    setTextElements((prevElements) =>
-      prevElements.map((element) =>
-        element.id === textElement.id
-          ? { ...element, content: newText }
-          : element
-      )
-    );
-  };
+// Function to handle double-click on a text element
+const handleDoubleClick = (textElement) => {
+  setEditableTextElements({
+    [textElement.id]: true,
+  });
+};
 
-  // Function to handle text input blur and update the state
-  const handleTextElementBlur = (textElement) => {
-    setEditableTextElements((prevEditableTextElements) => ({
-      ...prevEditableTextElements,
-      [textElement.id]: false,
-    }));
-    console.log(selectedElement);
-    setSelectedElement(null);
-    console.log(selectedElement);
-  };
+const handleSingleClick = (textElement) => {
+  // For Removing the selection for previous element
+  setTextElements((prevElements) =>
+  prevElements.map((element) => ({ ...element, isSelected: false }))
+);
 
+  setTextElements((prevElements) =>
+  prevElements.map((element) =>
+    element.id === textElement.id
+      ? { ...element, isSelected: true }
+      : element
+  )
+);
+console.log(textElements);
+};
 
+// Function to handle text input changes
+const handleTextInputChange = (e, textElement) => {
+  const newText = e.target.value;
+  setTextElements((prevElements) =>
+    prevElements.map((element) =>
+      element.id === textElement.id ? { ...element, content: newText } : element
+    )
+  );
+};
+
+// Function to handle text input blur and update the state
+const handleTextElementBlur = (textElement) => {
+  console.log("on blur event")  
+  setEditableTextElements({
+    [textElement.id]: false,
+  });
+};
+  
   // Component Ref For Print Component
   const componentRef = useRef();
   const handlePrint = useReactToPrint({
@@ -196,7 +199,6 @@ const Artboard = () => {
         textElements={textElements}
         setDataObject={setDataObject}
         addText={addText}
-        selectedElement={selectedElement}
         handlePrint={handlePrint}
         handleDeleteElement={handleDeleteElement}
         handleTextPropertyChange={handleTextPropertyChange}
@@ -215,7 +217,6 @@ const Artboard = () => {
           handleDoubleClick={handleDoubleClick}
           handleTextInputChange={handleTextInputChange}
           handleTextElementBlur={handleTextElementBlur}
-          selectedElement={selectedElement}
           handleSingleClick={handleSingleClick}
       />
       <SecondaryControler/>

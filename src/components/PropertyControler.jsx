@@ -1,5 +1,5 @@
 import { Button, Input } from "@nextui-org/react";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { BsTypeBold } from "react-icons/bs";
 import { FaItalic } from "react-icons/fa";
 import { MdDelete, MdFormatUnderlined } from "react-icons/md";
@@ -7,27 +7,16 @@ import { Select, SelectSection, SelectItem } from "@nextui-org/react";
 
 const PropertyControler = ({
   handleTextPropertyChange,
-  textElement,
-  textElements,
+  selectedElement,
   handleDeleteElement,
 }) => {
-  const [singleTextElement, setSingleTextElement] = useState("")
-  useEffect(() => {
-    setSingleTextElement(textElements.filter((textElementForSearch)=>{
-      if (textElementForSearch.id===textElement.id) {
-        return textElementForSearch;
-      }
-    }))
-    console.log(singleTextElement)
-  },[textElements])
-  
+  const textElement=selectedElement[0];
   // const handleFontFamilyChange=()=>{
   //   handleTextPropertyChange(e, textElement, "fontFamily")
   // }
   return (
     <>
-    {textElement?
-      <div className="text-properties w-full flex flex-col gap-2">
+  {textElement?<div className="text-properties w-full flex flex-col gap-2">
       <div className="font-properties flex gap-2 ">
         <Select
           label="Select Font"
@@ -70,7 +59,7 @@ const PropertyControler = ({
         <Input
           type="number"
           className="w-1/4"
-          value={singleTextElement.fontSize}
+          value={textElement.fontSize}
           onChange={(e) => handleTextPropertyChange(e, textElement, "fontSize")}
         />
       </div>
@@ -180,8 +169,7 @@ const PropertyControler = ({
           <MdDelete size={"60%"} color="#8b0000" />
         </Button>
       </div>
-    </div>
-    :null}
+    </div>:null}
     </>
   );
 };
