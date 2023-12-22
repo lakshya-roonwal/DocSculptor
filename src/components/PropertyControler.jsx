@@ -2,6 +2,7 @@ import { Button, Input } from "@nextui-org/react";
 import React from "react";
 import { BsTypeBold } from "react-icons/bs";
 import { FaItalic } from "react-icons/fa";
+import { TfiAlignCenter,TfiAlignLeft,TfiAlignRight  } from "react-icons/tfi";
 import { MdDelete, MdFormatUnderlined } from "react-icons/md";
 import { Select, SelectSection, SelectItem } from "@nextui-org/react";
 
@@ -16,7 +17,8 @@ const PropertyControler = ({
   // }
   return (
     <>
-  {textElement?<div className="text-properties w-full flex flex-col gap-2">
+  {textElement?
+  <div className="text-properties w-full flex flex-col gap-2">
       <div className="font-properties flex gap-2 ">
         <Select
           label="Select Font"
@@ -148,6 +150,52 @@ const PropertyControler = ({
           />
         </div>
       </div>
+
+      <div className="flex gap-2 items-center">
+      <Button
+            // Bold Button
+            color={`${textElement.alignment==="left" ? "primary" : "default"}`}
+            onClick={() => {
+                handleTextPropertyChange(
+                  "left",
+                  textElement,
+                  "alignment"
+                );
+            }}
+            isIconOnly
+          >
+            <TfiAlignLeft size={"50%"} />
+          </Button>
+          <Button
+            // Bold Button
+            color={`${textElement.isBold ? "primary" : "default"}`}
+            onClick={() => {
+                handleTextPropertyChange(
+                  "left",
+                  textElement,
+                  "alignment"
+                );
+            }}
+            isIconOnly
+          >
+            <TfiAlignCenter size={"50%"} />
+          </Button>
+          <Button
+            // Bold Button
+            color={`${textElement.alignment==="right"  ? "primary" : "default"}`}
+            onClick={() => {
+                handleTextPropertyChange(
+                  "right",
+                  textElement,
+                  "alignment"
+                );
+            }}
+            isIconOnly
+          >
+            <TfiAlignRight size={"50%"} />
+          </Button>
+      </div>
+
       <div className="flex justify-between items-center">
         <div className="color-input-group flex">
           <input 
