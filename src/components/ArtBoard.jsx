@@ -30,7 +30,8 @@ const ArtBoard = ({
             key={textElement.id}
             className={`text-element absolute cursor-move whitespace-nowrap ${!isRendingBoard?textElement.isSelected?'outline-dashed outline-2 outline-offset-4 outline-blue-700':"":null}`}
             style={{
-              left: textElement.alignment === "left" ? textElement.x : null,
+              transform:`translate(${textElement.alignment === "center"?"-50%":""})`,
+              left: textElement.alignment === "left"||textElement.alignment === "center" ? textElement.x : null,
               right: textElement.alignment === "right" ? textElement.x : null,
               top: textElement.y,
               maxWidth: "210mm",

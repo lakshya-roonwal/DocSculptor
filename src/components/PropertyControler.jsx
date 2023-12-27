@@ -168,10 +168,10 @@ const PropertyControler = ({
           </Button>
           <Button
             // Bold Button
-            color={`${textElement.isBold ? "primary" : "default"}`}
+            color={`${textElement.alignment==="center" ? "primary" : "default"}`}
             onClick={() => {
                 handleTextPropertyChange(
-                  "left",
+                  "center",
                   textElement,
                   "alignment"
                 );
